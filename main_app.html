@@ -1,0 +1,361 @@
+<html>
+<head>
+      <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    
+    
+    
+<style>
+
+    
+    
+    body{
+        
+        background-repeat:no-repeat;
+       background-size:cover;
+        background-image: url(weather.jpg);
+    }
+    
+    
+    
+    .left
+    {
+        
+        margin-left:50px;
+        border-top-left-radius:20px;
+        margin-top:200px;
+        height:25%;
+        background-color: azure;
+
+    }
+
+    
+    .right{
+/*        margin-left:2px;*/
+        border-bottom-right-radius: 20px;
+         margin-top:200px;
+        height:25%;
+        background-color:cadetblue;
+        }
+    
+    
+    .left-first{
+        
+        text-align: center;
+        margin-top:-140px;
+        font-size:12px;
+    }
+    
+        .left-middle{
+             text-align: center;
+        margin-top:-90px;
+        font-size:30px;
+    }
+    
+        .left-bottom{
+
+             text-align: center;
+        margin-top:-45px;
+        font-size:20px;
+    }
+    
+    .right-top{
+        height:30%;
+        text-align: center;
+        background-color: azure;
+    
+    }
+
+    .right-bottom-top{
+        font-size:28.33px; 
+        text-align: center;
+        height:23.33%;
+        background-image: url(humidity.jpeg);
+    }
+    .right-bottom-middle{
+        height:23.33p%;
+        background-color: black;
+        color:aliceblue;
+        font-size: 24px;;
+        text-align: center;
+    }
+    .right-bottom-bottom{
+        height:23.33%;
+        font-size: 26px;
+        text-align: center;
+    }
+    #condition{
+        font-size:22px;
+       
+    }
+
+    
+    #icons{
+        margin-left:-15px; 
+         border-top-left-radius:20px;
+        width:7.5cm;
+        height:100%;
+        opacity:0.6;
+    }
+    
+    
+    
+    
+    
+    .tex{
+        text-align: center;
+        border: 1px solid white;
+        background: transparent;
+        margin-left:20px;
+        margin-top:20px;
+        border-radius: 20px;
+        height:35px;
+        width:250px;
+    
+    }
+    
+    ::-webkit-input-placeholder{
+        text-align: center;
+        color:white;
+        font-size:20px;
+    }
+    
+    input[type=text]{
+        font-size:30px;
+        color:orange;
+    }
+    
+    
+    
+    input[type=submit]{
+        font-family:monospace;
+          border: 0.5px solid white;
+        border-top:transparent;
+        margin-left:90px;
+        border-bottom-left-radius: 20px;
+        border-bottom-right-radius: 20px;
+        background: transparent;
+
+        font-size:27px;
+        color: white;
+        
+    } 
+    </style>
+    
+    <script type="text/javascript">
+    var APPID="a460fad55c48ec9d205741d13b1376fb";
+    var temp;
+    var loc;
+    var humidity;
+    var wind;
+    var condition;
+    var icon;
+        var pressure;
+    
+    
+    function updateByZip(cityName)
+    {
+        
+        var url = "http://api.openweathermap.org/data/2.5/weather?q="+cityName+"&units=metric&appid=b20804012f604fe0be183fa2719dd840";
+        console.log(url);
+        sendRequest(url);
+    }
+    
+    
+    
+    function sendRequest(url){
+        
+        
+        var xmlhttp=new XMLHttpRequest();
+        xmlhttp.onreadystatechange=function(){
+            
+            
+            
+//            if (xmlhttp.readyState ==4 &&  xmlhttp.status==204)
+//                {
+//                    
+                    
+                    var data=JSON.parse(xmlhttp.responseText);
+            console.log(data);
+                
+                    var weather={};
+                    weather.icon=data.weather[0].icon;
+                    weather.humidity=data.main.humidity;
+                    weather.wind=data.wind.speed;
+                    weather.loc=data.name;
+            console.log(loc);
+                    weather.temp=data.main.temp;
+                    weather.pressure=data.main.pressure;
+                    weather.condition=data.weather[0].main;
+            console.log(condition);
+            update(weather);
+                }
+        
+        
+        xmlhttp.open("GET",url,true);
+        xmlhttp.send();
+    }
+    
+    
+    function update(weather)
+    {
+        document.getElementById("date").innerHTML = Date();
+        wind.innerHTML=weather.wind;
+        pressure.innerHTML=weather.pressure;
+        humidity.innerHTML=weather.humidity;
+        loc.innerHTML=weather.loc;
+        temp.innerHTML=weather.temp;  
+         icon.src="http://openweathermap.org/img/w/"+weather.icon+".png";
+        icons.src=weather.icon+".jpeg";
+        condition.innerHTML=weather.condition;
+    }
+    
+    
+    
+function piyush()
+{
+    
+    var x=document.getElementById("piyush");
+        
+            var z= x.value;
+            
+    
+    temp=document.getElementById("temperature");
+    loc=document.getElementById("location");
+    icon=document.getElementById("icon");
+    icons=document.getElementById("icons");
+    humidity=document.getElementById("humidity");
+    wind=document.getElementById("wind");
+    pressure=document.getElementById("pressure");
+    condition=document.getElementById("condition");
+    
+    
+//    cities=document.getElementById("city").value;
+//    console.log(cities);
+    
+    
+//    
+//    var weather={};
+//    weather.loc="boston";
+//    weather.wind=3.5;
+//     weather.direction="S";
+//     weather.humidity=89;
+//     weather.temp="90";
+//     weather.icon="ms02_example_heavy_rain_showers.png";
+//    
+//    update(weather);
+    
+    
+    
+    updateByZip(z);
+    
+}
+        
+    </script>
+    
+    
+    </head>
+
+    <body>
+        
+        
+<!--
+        <input type="text" id="piyush">
+<input type="submit" value="click" onclick="piyush()"/>
+    
+-->
+        
+        
+        <div class="row">
+
+        <div class="left  col-xs-offset-1 col-xs-5 col-sm-offset-2 col-sm-4 col-md-offfset-4 col-md-2">
+           
+            <img  id="icons" src="10d.jpeg">
+<div class="row">
+    <div class=" left-first col-sm-offset-2 col-sm-8 col-xs-offset-1 col-xs-10 col-md-offset-2 col-md-8">
+    <span id="date">WED 2:07 PM</span>
+    </div>
+</div>
+            
+            
+<div class="row">
+     <div class=" left-middle col-sm-offset-2 col-sm-8 col-xs-offset-1 col-xs-10 col-md-offset-2 col-md-8">
+    <span id="temperature">45</span>&deg;
+    </div>
+</div>
+            
+            <div class="row">
+ <div class=" left-bottom col-sm-offset-2 col-sm-8 col-xs-offset-1 col-xs-10 col-md-offset-2 col-md-8">
+    <span id="location">PALO ALTO</span>
+    </div>
+</div>
+            
+            
+            
+        </div>
+        <div class=" right col-xs-5 col-sm-4  col-md-2">
+        
+            <div class="row">
+            <div class="right-top">
+                <img id="icon" src="http://openweathermap.org/img/w/10d.png"  height="60px/">
+                <span id="condition">clearsky</span>
+                </div>
+            </div>
+            
+            
+            
+               
+            <div class="row">
+            <div class="right-bottom">
+                
+                <div class="right-bottom-top">
+                    
+                <span id="humidity">37</span><span style="font-size:20px;">%</span>
+                
+                </div>
+                
+                <div class="right-bottom-middle">
+              <span id="wind">29&nbsp;</span><span style="font-size:20px;">&nbsp;m/s</span>&nbsp;
+                    <span style="font-size:12px">wind</span>
+                </div>
+                <div class="right-bottom-bottom"> 
+<span id="pressure">100</span><span style="font-size:20px">&nbsp;hpa</span>                <span style="font-size:12px">pressure</span>
+                </div>
+                </div>
+            </div>
+            
+            
+            
+            
+            <div>
+            
+            </div>
+            
+            
+        </div>
+        
+        
+        </div>
+        
+
+        <div class=" col-xs-offset-1 col-xs-5 col-sm-offset-2 col-sm-4 col-md-offfset-4 col-md-2">
+            <input type="text" id="piyush" placeholder="enter yor city " class="tex">
+            <br>
+    <input type="submit" onclick="piyush()">
+        
+        
+        </div>
+
+
+        
+    
+    </body>
+    
+</html>
